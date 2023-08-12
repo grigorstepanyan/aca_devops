@@ -7,6 +7,7 @@ jobs:
     steps:
       - run:  |
           mkdir -p ~/.ssh
+          touch ~/key
           echo $SSH_PRIVATE_KEY > ~/key
           sudo chmod 600 ../key
 
