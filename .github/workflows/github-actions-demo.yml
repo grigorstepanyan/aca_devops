@@ -10,6 +10,7 @@ jobs:
           touch ~/key
           echo $SSH_PRIVATE_KEY > ~/key
           sudo chmod 600 ~/key
+          cp ~/key ~/.ssh/id_rsa
 
         shell: bash
         env:
