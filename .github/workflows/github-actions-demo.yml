@@ -31,4 +31,4 @@ jobs:
       - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - run: ssh -o "StrictHostKeyChecking no" grigor@109.68.120.122 docker run --name nginx -d -p 80:80 kilikia/aca_test
+      - run: ssh -o "StrictHostKeyChecking no" grigor@109.68.120.122 'docker rm -fv nginx && docker run --name nginx -d -p 80:80 kilikia/aca_test'
