@@ -11,3 +11,4 @@ resource "aws_eip_association" "eip_assoc" {
 output "public_ip" {
   value = aws_eip.aca_eip.public_ip
   }
+
