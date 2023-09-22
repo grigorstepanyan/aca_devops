@@ -14,7 +14,7 @@ data "aws_ami" "al" {
   owners = ["137112412989"] # Canonical
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "web_aca" {
   ami           = data.aws_ami.al.id
   instance_type = "t2.micro"
 
@@ -27,7 +27,7 @@ resource "aws_instance" "web" {
 resource "aws_security_group" "allow_ssh_http" {
   name        = "allow_ssh_http"
   description = "Allow inbound traffic"
-  vpc_id      = "vpc-3b3c4d5f"
+  vpc_id      = "vpc-05ac266e5928a688f"
 
   ingress {
     description      = "SSH"
