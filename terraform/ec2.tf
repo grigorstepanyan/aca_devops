@@ -17,9 +17,7 @@ data "aws_ami" "al" {
 resource "aws_instance" "web_aca" {
   ami           = data.aws_ami.al.id
   instance_type = "t2.micro"
-
-  key_name = "aca _evops"
-
+  key_name      = "aca _evops"
   vpc_security_group_ids = [ aws_security_group.allow_ssh_http.id ]
 
 }
@@ -55,3 +53,5 @@ resource "aws_security_group" "allow_ssh_http" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
+
+
