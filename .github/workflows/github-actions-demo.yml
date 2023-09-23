@@ -16,7 +16,8 @@ jobs:
       - run:  echo $SSH_PRIVATE_KEY_AWS > ~/key
       - run:  sudo chmod 600 ~/key
       - run:  cp ~/key ~/.ssh/id_rsa
-      - run:  terraform apply | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" >> inventory-ansible
+      - run:  terraform init
+      - run:  terraform apply -auto-approve | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" >> inventory-ansible
       - run:  truncate -s-1 inventory-ansible
       - run:  echo -n " ansible_user=ubuntu ansible_ssh_private_key_file=~/key" >> inventory-ansible
       - run:  ansible-playbook docker-ansible.yaml --ssh-common-args='-o StrictHostKeyChecking=no' -i inventory-ansible
