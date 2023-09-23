@@ -1,9 +1,9 @@
-data "aws_ami" "al" {
+data "aws_ami" "ubuntu" {
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023.1.20230912.0-kernel-6.1-x86_64"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 
   filter {
@@ -11,15 +11,18 @@ data "aws_ami" "al" {
     values = ["hvm"]
   }
 
-  owners = ["137112412989"] # Canonical
+  owners = ["099720109477"] # Canonical
 }
 
+
 resource "aws_instance" "web_aca" {
-  ami           = data.aws_ami.al.id
+  ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   key_name      = "aca _evops"
   vpc_security_group_ids = [ aws_security_group.allow_ssh_http.id ]
-
+  tags = {
+    Name = "aca_web"
+  }
 }
 
 resource "aws_security_group" "allow_ssh_http" {
