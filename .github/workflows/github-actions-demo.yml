@@ -14,7 +14,7 @@ jobs:
       - run:  export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
         shell: bash
         env:
-          AWS_SECRET_ACCESS_KEY: {{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY:${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - run:  export AWS_REGION="us-east-1"
       - run:  mkdir -p ~/.ssh
       - run:  touch ~/key
