@@ -8,8 +8,14 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
       - run:  export test
-      - run:  export AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}"
-      - run:  export AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_ACCESS_KEY_ID }}"
+      - run:  export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+        shell: bash
+        env:
+          AWS_ACCESS_KEY_ID:${{ secrets.AWS_ACCESS_KEY_ID }} 
+      - run:  export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY_ID }}
+        shell: bash
+        env:
+          AWS_ACCESS_KEY_ID: {{ secrets.AWS_ACCESS_KEY_ID }}
       - run:  export AWS_REGION="us-east-1"
       - run:  mkdir -p ~/.ssh
       - run:  touch ~/key
