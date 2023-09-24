@@ -7,7 +7,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run:  export AWS_REGION="us-east-1"
       - run:  mkdir -p ~/.ssh
       - run:  touch ~/key
       - run:  echo $SSH_PRIVATE_KEY_AWS > ~/key
@@ -23,6 +22,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         run: |
           terraform init
+          export AWS_REGION="us-east-1"
           terraform apply -auto-approve | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" >> inventory-ansible
       - run:  truncate -s-1 inventory-ansible
       - run:  echo -n " ansible_user=ubuntu ansible_ssh_private_key_file=~/key" >> inventory-ansible
