@@ -9,10 +9,18 @@ resource "aws_db_instance" "mysql_db" {
   parameter_group_name    = "default.mysql5.7"
   vpc_security_group_ids  = [aws_security_group.rds_sg1.id]
   skip_final_snapshot     = true
+ 
+  tags = {
+    Name = "aca_web"
+  }
 }
+
 resource "aws_security_group" "rds_sg1" {
   name        = "rds_sg1"
   description = "Allow sql traffic"
+  tags = {
+    Name = "local_only_mysql"
+  }
 
   ingress {
     description      = "MySQL"
