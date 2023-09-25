@@ -29,6 +29,6 @@ jobs:
           echo $SSH_PRIVATE_KEY_AWS > ~/key
           sudo chmod 600 ~/key
           cp ~/key ~/.ssh/id_rsa
-          echo -n " ansible_user=ubuntu ansible_ssh_private_key_file=~/key" >> inventory-ansible
+          echo -n " ansible_user=ubuntu" >> inventory-ansible
       - run:  cat inventory-ansible
       - run:  ansible-playbook docker-ansible.yaml --ssh-common-args='-o StrictHostKeyChecking=no' -i inventory-ansible
