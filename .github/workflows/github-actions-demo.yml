@@ -21,12 +21,10 @@ jobs:
       - run:  cat inventory-ansible
       - name: Ansible
         shell: bash
-        env:
-          SSH_PRIVATE_KEY_AWS: ${{secrets.SSH_PRIVATE_KEY_AWS}}
         run: |
           mkdir -p ~/.ssh
           touch ~/key
-          echo $SSH_PRIVATE_KEY_AWS > ~/key
+          echo "${{secrets.SSH_PRIVATE_KEY_AWS}}" > ~/key
           sudo chmod 600 ~/key
           cp ~/key ~/.ssh/id_rsa
           echo -n " ansible_user=ubuntu" >> inventory-ansible
