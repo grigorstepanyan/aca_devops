@@ -1,6 +1,9 @@
 
 resource "aws_eip" "aca_eip" {
   domain   = "vpc"
+  tags = {
+    Name = "aca_web_eip"
+  }
 }
 
 resource "aws_eip_association" "eip_assoc" {
