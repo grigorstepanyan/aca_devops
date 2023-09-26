@@ -47,5 +47,5 @@ resource "aws_security_group" "rds_sg1" {
 
 output "db_instance_address" {
   description = "The address of the RDS instance"
-  value       = aws_db_instance.mysql_db.endpoint
+  value       = aws_db_instance.mysql_db.address
 }
