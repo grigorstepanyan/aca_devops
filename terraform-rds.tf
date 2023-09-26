@@ -1,3 +1,9 @@
+variable "password" {
+  type    = string
+  dsefault = [test1234]
+}
+
+
 resource "aws_db_instance" "mysql_db" {
   allocated_storage       = 10
   db_name                 = "mydb"
@@ -5,7 +11,7 @@ resource "aws_db_instance" "mysql_db" {
   engine_version          = "5.7"
   instance_class          = "db.t2.micro"
   username                = "root"
-  password                = "root1234321"
+  password                = var.password
   parameter_group_name    = "default.mysql5.7"
   vpc_security_group_ids  = [aws_security_group.rds_sg1.id]
   skip_final_snapshot     = true
@@ -37,4 +43,9 @@ resource "aws_security_group" "rds_sg1" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+}
+
+output "db_instance_address" {
+  description = "The address of the RDS instance"
+  value       = aws_db_instance.mysql_db.endpoint
 }
