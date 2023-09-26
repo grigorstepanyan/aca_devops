@@ -1,6 +1,6 @@
 variable "password" {
   type    = string
-  dsefault = [test1234]
+  default = null
 }
 
 
