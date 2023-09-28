@@ -1,4 +1,4 @@
-variable "password" {
+variable "db_password" {
   type    = string
   default = null
 }
@@ -11,7 +11,7 @@ resource "aws_db_instance" "mysql_db" {
   engine_version          = "5.7"
   instance_class          = "db.t2.micro"
   username                = "root"
-  password                = var.password
+  password                = var.db_password
   parameter_group_name    = "default.mysql5.7"
   vpc_security_group_ids  = [aws_security_group.rds_sg1.id]
   skip_final_snapshot     = true

@@ -1,6 +1,7 @@
 - hosts: all
   vars:
-    mysql_password: "superpassword"
+          #    mysql_password: "superpassword"
+          #db_host: "localhost"
   become: true
   tasks:
     - name: Install required system packages
@@ -55,9 +56,9 @@
         ports:
           - "80:80"
         env:
-            MYSQL_PASSWORD: {{mysql_password}}
-            MYSQL_DATABASE: mydb
-            MYSQL_USER: root
-            MYSQL_HOST: mariadb
+          MYSQL_PASSWORD: "{{ mysql_password }}"
+          MYSQL_DATABASE: mydb
+          MYSQL_USER: root
+          MYSQL_HOST: "{{ db_host }}"
 
 
