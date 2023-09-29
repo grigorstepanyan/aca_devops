@@ -7,20 +7,19 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Terraform
+      - name: Terraform and Ansible
         timeout-minutes: 20 
+        shell: bash
         env:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         run: |
           terraform init
           export AWS_REGION="us-east-1"
-          terraform apply -auto-approve -var password="${{secrets.DB_PASSWORD}}" 
-          terraform output -raw public_ip >> inventory-ansible
-      - name: Ansible
-        shell: bash
-        run: |
+          terraform apply -auto-approve -var password="${{secrets.DB_PASSWORD}}"
+          terraform output public_ip | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" >> inventory-ansible
           mkdir -p ~/.ssh
+          dbhost=$(terraform output -raw db_instance_address)
           touch ~/key
           echo "${{secrets.SSH_PRIVATE_KEY_AWS}}" > ~/key
           sudo chmod 600 ~/key
@@ -28,4 +27,4 @@ jobs:
           truncate -s-1 inventory-ansible
           echo -n " ansible_user=ubuntu" >> inventory-ansible
           cat inventory-ansible
-      - run:  ansible-playbook docker-ansible.yaml --ssh-common-args='-o StrictHostKeyChecking=no' -i inventory-ansible
+          ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no'  --extra-vars "db_host=$db_host mysql_password:${{secrets.DB_PASSWORD}}""
