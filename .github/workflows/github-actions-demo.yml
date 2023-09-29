@@ -2,7 +2,7 @@ name: Terraform-AWS-Ansible
 run-name: ${{ github.actor }} Terraform-AWS-Ansible
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Terraform-AWS-Ansible:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
