@@ -1,5 +1,7 @@
 - hosts: all
   become: true
+  vars:
+    mysql_password: " "
   tasks:
     - name: Install required system packages
       apt:

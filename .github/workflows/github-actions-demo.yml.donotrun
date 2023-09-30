@@ -29,4 +29,5 @@ jobs:
           truncate -s-1 inventory-ansible
           echo -n " ansible_user=ubuntu" >> inventory-ansible
           cat inventory-ansible
+          echo $db_host
           ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no'  --extra-vars "db_host=$db_host mysql_password:$DB_PASSWORD"
