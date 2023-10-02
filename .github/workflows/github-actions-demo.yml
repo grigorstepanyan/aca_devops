@@ -40,13 +40,3 @@ jobs:
           inventoryFile: 'inventory-ansible'
           extraVars: "-e mysql_password=${{ env.DB_PASSWORD }} -e db_host=$db_host"
           keyFile: "~/key"
-        run: |
-          echo "${{secrets.SSH_PRIVATE_KEY_AWS}}" > ~/key
-          sudo chmod 600 ~/key
-          cp ~/key ~/.ssh/id_rsa
-          echo -n " ansible_user=ubuntu" >> inventory-ansible
-          cat inventory-ansible
-          terraform output -raw db_instance_address >> db.txt
-          cat db.txt
-          db_host=$(cat db.txt)
-          cat db.txt
