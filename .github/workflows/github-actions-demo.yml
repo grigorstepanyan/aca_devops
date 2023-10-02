@@ -28,4 +28,4 @@ jobs:
           echo -n " ansible_user=ubuntu" >> inventory-ansible
           terraform output -raw db_instance_address >> db.txt
           db_host=$(cat db.txt)
-          ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no' --extra-vars "mysql_password=${{ secrets.DB_PASSWORD }} db_host=$db_host"
+          ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no' --extra-vars "mysql_password=${{ secrets.DB_PASSWORD }} db_host="$db_host""
