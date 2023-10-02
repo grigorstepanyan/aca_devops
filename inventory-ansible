@@ -1,2 +1,1 @@
 [wordpress]
-44.196.97.49 ansible_user=ubuntu ansible_ssh_private_key_file=~/key
