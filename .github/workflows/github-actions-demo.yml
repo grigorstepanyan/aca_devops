@@ -34,6 +34,6 @@ jobs:
           truncate -s-1 vars.yaml
           cat db.txt >> vars.yaml
           echo " " >> vars.yaml
-          echo "mysql_password: $DB_PASSWORD" >> vars.yaml
+          echo "mysql_password: ${{env.DB_PASSWORD}}" >> vars.yaml
           cat vars.yaml
           ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no'  --extra-vars "@vars.yaml"
