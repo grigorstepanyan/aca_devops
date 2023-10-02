@@ -1,7 +1,7 @@
 - hosts: all
   become: true
   vars:
-    mysql_password: " "
+    #mysql_password: " "
   tasks:
     - name: Install required system packages
       apt:
@@ -38,7 +38,7 @@
     - name: Install Docker Module for Python
       pip:
         name: docker
-    
+
     - name: Add remote "ubuntu" user to "docker" group
       user:
         name: "ubuntu"

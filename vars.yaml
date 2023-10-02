@@ -1,0 +1,2 @@
+db_host: terraform-20231002163108944800000001.ceu3gciifucz.us-east-1.rds.amazonaws.com 
+mysql_password: test1234
