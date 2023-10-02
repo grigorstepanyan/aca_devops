@@ -2,7 +2,6 @@
   become: true
   vars:
     db_host: "{{ lookup('file','db.txt') }}"
-    #mysql_password: " "
   tasks:
     - name: Install required system packages
       apt:
