@@ -18,7 +18,6 @@ jobs:
           terraform init
           export AWS_REGION="us-east-1"
           DB_PASSWORD=$(echo "${{secrets.DB_PASSWORD}}")
-          echo $DB_PASSWORD
           terraform apply -auto-approve -var db_password=$DB_PASSWORD
           terraform output public_ip | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" >> inventory-ansible
           truncate -s-1 inventory-ansible
@@ -30,11 +29,11 @@ jobs:
           echo -n " ansible_user=ubuntu" >> inventory-ansible
           cat inventory-ansible
           terraform output -raw db_instance_address >> db.txt
+          cat db.txt
           echo "db_host: " > vars.yaml
           truncate -s-1 vars.yaml
           cat db.txt >> vars.yaml
           echo " " >> vars.yaml
-          DB_PASSWORD=$(echo "${{secrets.DB_PASSWORD}}")
           echo "mysql_password: $DB_PASSWORD" >> vars.yaml
           cat vars.yaml
           ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no'  --extra-vars "@vars.yaml"
