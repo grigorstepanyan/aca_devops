@@ -36,4 +36,5 @@ jobs:
           echo " " >> vars.yaml
           DB_PASSWORD=$(echo "${{secrets.DB_PASSWORD}}")
           echo "mysql_password: $DB_PASSWORD" >> vars.yaml
+          cat vars.yaml
           ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no'  --extra-vars "@vars.yaml"
