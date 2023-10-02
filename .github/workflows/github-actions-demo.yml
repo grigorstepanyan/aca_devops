@@ -39,3 +39,4 @@ jobs:
           playbookName: 'docker-ansible.yaml'
           inventoryFile: 'inventory-ansible'
           extraVars: "-e mysql_password=${{ env.DB_PASSWORD }} -e db_host=$db_host"
+          keyFile: ${{secrets.SSH_PRIVATE_KEY_AWS}}
