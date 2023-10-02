@@ -7,8 +7,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Terraform
-        timeout-minutes: 20
+      - name: Terraform and Ansible
+        timeout-minutes: 20 
         shell: bash
         env:
           AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -32,9 +32,10 @@ jobs:
           cat inventory-ansible
           terraform output -raw db_instance_address >> db.txt
           cat db.txt
-          db_host=$(cat db.txt)
-          uses: saubermacherag/ansible-playbook-docker-action@v1.4
-            with:
-              playbookName: 'docker-ansible.yaml'
-              inventoryFile: 'inventory-ansible'
-              extraVars: "-e mysql_password=${{ env.DB_PASSWORD }} -e my_second_one=$db_host"
+          echo "db_host: " > vars.yaml
+          truncate -s-1 vars.yaml
+          cat db.txt >> vars.yaml
+          echo " " >> vars.yaml
+          echo "mysql_password: ${{env.DB_PASSWORD}}" >> vars.yaml
+          cat vars.yaml
+          ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no'  --extra-vars "@vars.yaml"
