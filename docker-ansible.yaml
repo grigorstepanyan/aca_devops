@@ -1,7 +1,7 @@
 - hosts: all
   become: true
   vars:
-    db_host: "{{ lookup('file','db.txt') }}"
+    db_host: "{{ lookup('env','db_host') }}"
   tasks:
     - name: Install required system packages
       apt:
