@@ -38,4 +38,4 @@ jobs:
           echo " " >> vars.yaml
           echo "mysql_password: test1234" >> vars.yaml
           cat vars.yaml
-          ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no'  --extra-vars "mysql_password:"test1234" db_host="terraform-20231002163108944800000001.ceu3gciifucz.us-east-1.rds.amazonaws.com""
+          ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no'  --extra-vars "mysql_password:test1234 db_host=terraform-20231002163108944800000001.ceu3gciifucz.us-east-1.rds.amazonaws.com"
