@@ -28,7 +28,7 @@ jobs:
           truncate -s-1 inventory-ansible
           echo -n " ansible_user=ubuntu" >> inventory-ansible
           cat inventory-ansible
-          terraform output -raw db_instance_iddress >> db.txt
+          terraform output -raw db_instance_address >> db.txt
           echo "db_host: " > vars.yaml
           truncate -s-1 vars.yaml
           cat db.txt >> vars.yaml
