@@ -33,8 +33,9 @@ jobs:
           terraform output -raw db_instance_address >> db.txt
           cat db.txt
           db_host=$(cat db.txt)
-          uses: saubermacherag/ansible-playbook-docker-action@v1.4
-            with:
-              playbookName: 'docker-ansible.yaml'
-              inventoryFile: 'inventory-ansible'
-              extraVars: "-e mysql_password=${{ env.DB_PASSWORD }} -e my_second_one=$db_host"
+      - name: Ansible 
+        uses: saubermacherag/ansible-playbook-docker-action@v1.4
+        with:
+          playbookName: 'docker-ansible.yaml'
+          inventoryFile: 'inventory-ansible'
+          extraVars: "-e mysql_password=${{ env.DB_PASSWORD }} -e db_host=$db_host"
