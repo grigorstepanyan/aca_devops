@@ -27,5 +27,4 @@ jobs:
           cp ~/key ~/.ssh/id_rsa
           echo -n " ansible_user=ubuntu" >> inventory-ansible
           db_host=$( terraform output -raw db_instance_address)
-          echo $db_host
           ansible-playbook docker-ansible.yaml -i inventory-ansible --ssh-common-args='-o StrictHostKeyChecking=no' --extra-vars "mysql_password=${{ secrets.DB_PASSWORD }}"
