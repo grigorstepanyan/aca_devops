@@ -46,7 +46,7 @@
         append: yes
 
 
-    - name: ensure a container is running
+    - name: Pull and run container
       docker_container:
         name: wordpress
         state: started
